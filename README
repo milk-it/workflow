@@ -1,0 +1,17 @@
+Workflow
+========
+
+Workflow was created by Milk-it Software House (milk-it.net) to help on
+daily tasks such as test software and commit. This helps commiting code only
+if all your tests pass.
+
+Example
+=======
+
+# Commit your code using Workflow
+$ rake svn:ci 
+
+# Coverage test using Workflow + rCov
+$ rake test:coverage
+
+Copyright (c) 2008 Carlos Júnior <carlos@milk-it.net>, released under the MIT license
