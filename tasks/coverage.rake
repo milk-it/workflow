@@ -14,7 +14,7 @@ namespace :test do
       task "#{test}s:coverage" do
         rm_f "coverage" # remove old coverage reports
         files = ENV["TEST"].nil?? Dir["test/#{test}/*_test.rb"].join(" ") : ENV["TEST"]
-        system "#{RCOV} #{_html} #{files}"
+        system "#{RCOV} #{files}"
       end
   end
 end
