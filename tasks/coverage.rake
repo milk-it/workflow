@@ -1,21 +1,27 @@
 # Coverage test
 begin
-  TESTS = ["unit", "functional", "integration"]
   require 'rcov/rcovtask'
+
+  TESTS = ["units", "functionals", "integration"]
+
+  def add_options(rcov)
+    rcov.rcov_opts.push("--rails")
+    rcov.rcov_opts.push(ENV['rcov']) if ENV['rcov']
+  end
 
   namespace :test do
     desc "Coverage on unit, functional and integration tests"
     Rcov::RcovTask.new(:coverage) do |rcov|
       rcov.libs.push("test")
-      rcov.rcov_opts.push("--rails")
-      rcov.test_files = Dir["test/{#{TESTS.join(",")}}/*_test.rb"]
+      add_options(rcov)
+      rcov.test_files = Dir["test/{#{TESTS.join(',').gsub(/s,/, ',')}}/*_test.rb"]
     end
 
     TESTS.each do |test|
       desc "Coverage on #{test} tests"
-      Rcov::RcovTask.new("#{test}s:coverage") do |rcov|
+      Rcov::RcovTask.new("#{test}:coverage") do |rcov|
         rcov.libs.push("test")
-        rcov.rcov_opts.push("--rails")
+        add_options(rcov)
         rcov.test_files = Dir["test/#{test}/*_test.rb"]
       end
     end
